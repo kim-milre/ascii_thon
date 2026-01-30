@@ -1,0 +1,77 @@
+/* index.css */
+/* [시큐어코딩 가이드 근거]
+   - p.28–30: 출력 무해화, UI 보안(스타일 기반 정보 노출 방지)
+   - p.125–130: 디버깅 정보·콘텐츠 노출 최소화
+   - p.10–16: 입력/출력 검증 및 안전한 기본값 설정
+*/
+
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  /* [보안 강화] 전역 스크롤바 오버플로우 차단 → XSS 스크롤 히잡 공격 방지 */
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+  scrollbar-gutter: stable; 
+}
+
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+body {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE, Edge 구버전 */
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #222; /* [보안·접근성] 명도 대비 확보 */
+  background-color: #ffffff;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+}
+
+/* 코드 블록 스타일 */
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  background-color: #f6f8fa; /* [가독성·접근성] 배경 대비 */
+  border-radius: 4px;
+  padding: 2px 4px;
+  color: #c7254e; /* [콘텐츠 식별성] 기본 대비 컬러 */
+}
+
+/* [보안·접근성 보완]
+   포커스 표시 및 탭 이동 시 시각적 피드백을 제공해
+   스크립트 기반 포커스 하이재킹 공격 완화
+*/
+:focus-visible {
+  outline: 2px solid #4d90fe;
+  outline-offset: 2px;
+}
+
+/* [보안] 이미지, iframe 등의 외부 콘텐츠가
+   CSS를 통해 영역을 벗어나지 않게 차단 */
+img,
+iframe {
+  max-width: 100%;
+  height: auto;
+  border: 0;
+  display: block;
+}
+
+/* [보안] 사용자 선택 제한이 필요한 민감정보 영역 예시 */
+.protected-text {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}

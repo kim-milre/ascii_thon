@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="캠퍼스 주변 맛집을 찾아보세요!" />
+    <title>crawlwise</title>
+
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
+    <script>
+      (function () {
+        const host = window.location.hostname;
+        const isDev = host.includes('localhost') || host.includes('127.0.0.1');
+        const policy = isDev
+          ? "default-src 'self'; " +
+            "img-src 'self' data: https:; " +
+            "script-src 'self'; " +
+            "style-src 'self' 'unsafe-inline'; " +
+            "connect-src 'self' https: http://127.0.0.1:10000 http://localhost:10000; " +
+            "frame-ancestors 'none'; " +
+            "base-uri 'self'; " +
+            "form-action 'self';"
+          : "default-src 'self'; " +
+            "img-src 'self' data: https:; " +
+            "script-src 'self'; " +
+            "style-src 'self' 'unsafe-inline'; " +
+            "connect-src 'self' https:; " +
+            "frame-ancestors 'none'; " +
+            "base-uri 'self'; " +
+            "form-action 'self';";
+
+        const meta = document.createElement('meta');
+        meta.httpEquiv = 'Content-Security-Policy';
+        meta.content = policy;
+        document.head.appendChild(meta);
+        console.log('CSP 정책 적용:', isDev ? '개발 환경 (localhost 허용)' : '배포 환경 (https 전용)');
+      })();
+    </script>
+  </head>
+
+  <body>
+    <noscript>이 앱을 실행하려면 JavaScript를 활성화해야 합니다.</noscript>
+
+    <form name="restaurant-submit" netlify hidden autocomplete="off">
+      <input type="text" name="restaurantName" pattern="[a-zA-Z가-힣0-9\\s]{1,50}" />
+      <select name="category"></select>
+      <input type="text" name="location" pattern=".{1,100}" />
+      <input type="text" name="priceRange" pattern="[0-9₩~\\-]{1,20}" />
+      <textarea name="recommendedMenu"></textarea>
+      <textarea name="review"></textarea>
+      <input type="text" name="submitterName" pattern="[a-zA-Z가-힣\\s]{1,30}" />
+      <input type="email" name="submitterEmail" autocomplete="off" />
+    </form>
+
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+{
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "${process.env.VITE_API_BASE_URL}/api/$1",
+      "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      "headers": {
+        "Access-Control-Allow-Origin": "https://sducoss.netlify.app",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      }
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/result/.*",
+      "dest": "/index.html"
+    },
+    {
+      "src": "/list",
+      "dest": "/index.html"
+    },
+    {
+      "src": "/.*",
+      "dest": "/index.html"
+    }
+  ]
+}
